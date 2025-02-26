@@ -5,7 +5,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const BLOCK_SIZE = 20;
-const BOARD_WIDTH = 11;
+const BOARD_WIDTH = 10;
 const BOARD_HEIGHT = 30;
 
 //2.- Crear el tablero
@@ -53,6 +53,15 @@ const board = [
   [1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
 ];
 
+//5.- Crear la pieza
+const piece = {
+  position: { x: 5, y: 5 },
+  shape: [
+    [1, 1],
+    [1, 1],
+  ],
+};
+
 //3.- Game Loop
 function update() {
   draw();
@@ -69,6 +78,46 @@ function draw() {
         ctx.fillStyle = 'yellow';
         ctx.fillRect(x, y, 1, 1);
       }
+    });
+  });
+
+  piece.shape.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(piece.position.x + x, piece.position.y + y, 1, 1);
+      }
+    });
+  });
+}
+
+//6.- Mover la pieza
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowDown') {
+    piece.position.y++;
+  }
+
+  if (event.key === 'ArrowRight') {
+    piece.position.x++;
+  }
+
+  if (event.key === 'ArrowLeft') {
+    piece.position.x--;
+    if (checkCollision()) {
+      piece.position.x++;
+    }
+  }
+});
+
+//7.- Colisiones
+function checkCollision() {
+  return piece.shape.find((row, y) => {
+    return row.find((value, x) => {
+      return (
+        value != 0 &&
+        board[y + piece.position.y] &&
+        board[y + piece.position.y][x + piece.position.x] != 0
+      );
     });
   });
 }
