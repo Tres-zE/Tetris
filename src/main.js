@@ -171,6 +171,24 @@ document.addEventListener('keydown', (event) => {
       piece.position.x++;
     }
   }
+
+  if (event.key === 'ArrowUp') {
+    const rotated = [];
+
+    for (let i = 0; i < piece.shape[0].length; i++) {
+      const row = [];
+
+      for (let j = piece.shape.length - 1; j >= 0; j--) {
+        row.push(piece.shape[j][i]);
+      }
+      rotated.push(row);
+    }
+    const previousShape = piece.shape;
+    piece.shape = rotated;
+    if (checkCollision()) {
+      piece.shape = previousShape;
+    }
+  }
 });
 
 //7.- Colisiones
