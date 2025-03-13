@@ -1,13 +1,10 @@
 import './style.css';
+import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE } from './consts';
 
 //1.- Inicializar el canvas
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const $score = document.querySelector('span');
-
-const BLOCK_SIZE = 20;
-const BOARD_WIDTH = 14;
-const BOARD_HEIGHT = 30;
 
 let score = 0;
 
@@ -16,6 +13,15 @@ canvas.width = BLOCK_SIZE * BOARD_WIDTH;
 canvas.height = BLOCK_SIZE * BOARD_HEIGHT;
 
 ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+
+//board
+const board = createBoard(BOARD_WIDTH, BOARD_HEIGHT);
+
+function createBoard(width, height) {
+  return Array(height)
+    .fill()
+    .map(() => Array(width).fill(0));
+}
 
 //4.- Dibujar el tablero
 
