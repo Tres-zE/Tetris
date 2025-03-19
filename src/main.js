@@ -1,5 +1,10 @@
 import './style.css';
-import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE } from './consts';
+import {
+  BOARD_WIDTH,
+  BOARD_HEIGHT,
+  BLOCK_SIZE,
+  EVENT_MOVEMENTS,
+} from './consts';
 
 //1.- Inicializar el canvas
 const canvas = document.querySelector('canvas');
@@ -162,7 +167,7 @@ function draw() {
 
 //6.- Mover la pieza
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowDown') {
+  if (event.key === EVENT_MOVEMENTS.DOWN) {
     piece.position.y++;
     if (checkCollision()) {
       piece.position.y--;
@@ -170,21 +175,21 @@ document.addEventListener('keydown', (event) => {
     }
   }
 
-  if (event.key === 'ArrowRight') {
+  if (event.key === EVENT_MOVEMENTS.RIGHT) {
     piece.position.x++;
     if (checkCollision()) {
       piece.position.x--;
     }
   }
 
-  if (event.key === 'ArrowLeft') {
+  if (event.key === EVENT_MOVEMENTS.LEFT) {
     piece.position.x--;
     if (checkCollision()) {
       piece.position.x++;
     }
   }
 
-  if (event.key === 'ArrowUp') {
+  if (event.key === EVENT_MOVEMENTS.UP) {
     const rotated = [];
 
     for (let i = 0; i < piece.shape[0].length; i++) {
