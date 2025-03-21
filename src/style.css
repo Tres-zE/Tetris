@@ -21,3 +21,15 @@ body {
   place-content: center;
   /* height: 100vh; */
 }
+
+section {
+  position: absolute;
+  background: black;
+  width: 100vw;
+  height: 100hw;
+  display: grid;
+  place-content: center;
+  top: 0;
+  inset: 0;
+  font-size: 48px;
+}

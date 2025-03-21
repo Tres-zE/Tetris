@@ -10,6 +10,8 @@ import {
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const $score = document.querySelector('span');
+const $section = document.querySelector('section');
+const audio = new window.Audio('./tetrisgameboy1-gameboy.mp3');
 
 let score = 0;
 
@@ -162,7 +164,7 @@ function draw() {
       }
     });
   });
-  document.querySelector('span').innerText = score;
+  $score.innerText = score;
 }
 
 //6.- Mover la pieza
@@ -171,6 +173,7 @@ document.addEventListener('keydown', (event) => {
     piece.position.y++;
     if (checkCollision()) {
       piece.position.y--;
+      solidifyPiece();
       removeRows();
     }
   }
@@ -213,7 +216,7 @@ function checkCollision() {
   return piece.shape.find((row, y) => {
     return row.find((value, x) => {
       return (
-        value != 0 && board[y + piece.position.y]?.[x + piece.position.x] != 0
+        value === 1 && board[y + piece.position.y]?.[x + piece.position.x] !== 0
       );
     });
   });
@@ -260,4 +263,10 @@ function removeRows() {
   });
 }
 
-update();
+$section.addEventListener('click', () => {
+  update();
+
+  $section.remove();
+  audio.volume = 0.5;
+  audio.play();
+});
